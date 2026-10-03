@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Jarvis AI</string>
+    <string name="accessibility_service_description">JARVIS reads on-screen content and performs taps, typing and scrolling ONLY when you give a command, so it can operate apps for you. You can turn this off at any time in Accessibility settings.</string>
+</resources>

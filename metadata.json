@@ -1,0 +1,6 @@
+{
+  "name": "Jarvis AI",
+  "description": "Premium futuristic mobile AI assistant interface inspired by cinematic HUD systems.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
