@@ -48,7 +48,7 @@ class ScreenCaptureService : Service() {
     if (code != Activity.RESULT_OK || data == null) { _active.value = false; stopSelf(); return START_NOT_STICKY }
     val mpm = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
     projection = mpm.getMediaProjection(code, data).also { p ->
-      p.registerCallback(object : MediaProjection.Callback() { override fun onStop() { teardown() } }, main)
+      p?.registerCallback(object : MediaProjection.Callback() { override fun onStop() { teardown() } }, main)
     }
     setupDisplay()
     _active.value = true

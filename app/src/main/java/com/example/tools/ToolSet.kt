@@ -64,7 +64,10 @@ fun buildTools(d: Deps): List<Tool> = listOf(
     override val description = "Open a URL in the default browser (or a given package). Use for search pages, e.g. https://www.youtube.com/results?search_query=..."
     override val inputSchema = """{"url":"string","package":"string?"}"""
     override val verification = "foreground package changed / page text visible"
-    override suspend fun execute(args: JSONObject) = fromDevice(d.device.openUrl(args.str("url") ?: return ToolResult.fail("INVALID_ARGUMENT", "url"), args.str("package")), "url opened")
+    override suspend fun execute(args: JSONObject): ToolResult {
+      val url = args.str("url") ?: return ToolResult.fail("INVALID_ARGUMENT", "url")
+      return fromDevice(d.device.openUrl(url, args.str("package")), "url opened")
+    }
   },
   object : Tool {
     override val id = "read_screen"; override val skillId = "screen_vision"
@@ -328,7 +331,10 @@ fun buildTools(d: Deps): List<Tool> = listOf(
     override val id = "remember"; override val skillId = "memory"
     override val description = "Store a long-term fact/preference about the user."; override val inputSchema = """{"content":"string","category":"fact|preference|person?"}"""
     override val verification = "written to users/{uid}/memory"
-    override suspend fun execute(args: JSONObject): ToolResult = if (d.memory.remember(args.str("content") ?: return ToolResult.fail("INVALID_ARGUMENT", "content"), args.str("category") ?: "fact")) ToolResult.ok("saved", false) else ToolResult.fail("NOT_SIGNED_IN", "Memory save nahi hui (khali content)")
+    override suspend fun execute(args: JSONObject): ToolResult {
+      val content = args.str("content") ?: return ToolResult.fail("INVALID_ARGUMENT", "content")
+      return if (d.memory.remember(content, args.str("category") ?: "fact")) ToolResult.ok("saved", false) else ToolResult.fail("NOT_SIGNED_IN", "Memory save nahi hui (khali content)")
+    }
   },
   object : Tool {
     override val id = "recall_memory"; override val skillId = "memory"

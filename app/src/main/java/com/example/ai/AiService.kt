@@ -59,7 +59,7 @@ class AiService(private val store: ProviderStore) {
     val results = targets.map { p -> async(Dispatchers.IO) { discover(p) } }.awaitAll()
     val keep = _models.value.filterNot { m -> targets.any { it.config.id == m.providerId } }
     _models.value = keep + results.flatMap { it.models }
-    val oldStatus = _status.value.filterNot { s -> targets.any { it.provider.id == s.provider.id } }
+    val oldStatus = _status.value.filterNot { s -> targets.any { it.config.id == s.provider.id } }
     _status.value = oldStatus + results
   }
 

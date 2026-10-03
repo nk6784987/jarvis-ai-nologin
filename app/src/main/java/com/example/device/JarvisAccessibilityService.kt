@@ -97,7 +97,7 @@ class JarvisAccessibilityService : AccessibilityService() {
       c.endsWith("ProgressBar") -> UiNode.Role.PROGRESS
       c.endsWith("ImageView") || c.endsWith("ImageButton") && n.text.isNullOrBlank() && !n.isClickable -> UiNode.Role.IMAGE
       c.endsWith("Button") || c.endsWith("ImageButton") -> UiNode.Role.BUTTON
-      c.endsWith("TabWidget") || (Build.VERSION.SDK_INT >= 30 && n.roleDescription?.toString()?.contains("tab", true) == true) -> UiNode.Role.TAB
+      c.endsWith("TabWidget") -> UiNode.Role.TAB
       c.endsWith("RecyclerView") || c.endsWith("ListView") || c.endsWith("GridView") -> UiNode.Role.LIST
       c.endsWith("ScrollView") || c.endsWith("ViewPager") -> UiNode.Role.SCROLL_AREA
       c.endsWith("Toolbar") || c.endsWith("ActionBar") -> UiNode.Role.TOOLBAR
